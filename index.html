@@ -11,10 +11,10 @@
 
 <body>
     <header>
-        <div>
-            <a>View high scores</a>
+        <div class="scores">
+            <a id="highscores-link">View high scores</a>
         </div>
-        <div>
+        <div id="timer" class="timer">
             Time: 75
         </div>
     </header>
@@ -23,13 +23,12 @@
 <section>
     <h1>Welcome to JavaScript Quiz Challenge</h1>
     <p>
-        You have 75 seconds to try to get the highest score by answering five
-        series of JavaScript questions. Incorrect answers will penalize your
-        time by ten seconds. Your total score will be your time after you
-        answer the last question. Click start when you are ready.
+        You have 75 seconds to try to get the highest score by answering five series of JavaScript questions. Incorrect
+        answers will penalize your time by ten seconds. Your total score will be your time after you answer the last
+        question. Click Start Quiz when you are ready.
     </p>
-    <div>
-        <button>Start Quiz</button>
+    <div class="controls">
+        <button id="start-btn" class="start-btn">Start Quiz</button>
     </div>
 </section>
 

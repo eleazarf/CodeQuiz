@@ -1,0 +1,45 @@
+header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 25px 0;
+}
+
+h1 {
+    margin-bottom: 10px;
+}
+
+.scores a,
+.timer {
+    font-size: 15px;
+}
+
+.scores a {
+    color: blue;
+    cursor: pointer;
+}
+
+.scores a:hover {
+    color: blueviolet;
+}
+
+button {
+    font-family: sans-serif;
+    border: none;
+    width: auto;
+    overflow: visible;
+    padding: 10px;
+    margin: 10px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: blue;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0;
+}
