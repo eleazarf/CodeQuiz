@@ -8,7 +8,7 @@ This week’s Challenge invites us to build a timed coding quiz with multiple-ch
 
 
 ## Screenshots<br>
-![Screenshot-01-generatesecurepassword](https://github.com/eleazarf/passwordgenerator/blob/main/images/Captura%20de%20pantalla%202023-06-29%20162844.jpg)
+![Screenshot-01-generatesecurepassword](https://github.com/eleazarf/CodeQuiz/blob/main/assets/images/Captura%20de%20pantalla%202023-07-04%20232629.jpg)
 <br>
 
 ## link to the project <br>
