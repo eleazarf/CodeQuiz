@@ -19,6 +19,8 @@ var questionEl = document.getElementById("question");
 //Variables related to scores
 var scores = JSON.parse(localStorage.getItem("scores")) || [];
 var viewHighScores = document.getElementById("highscores-link");
+var restartButton = document.getElementById("restart-btn");
+
 
 //Question variables for quiz
 var questions = [
@@ -192,6 +194,11 @@ function clearStatusClass(element) {
 
 // adding View high scores link listener
 viewHighScores.addEventListener("click", showHighScores);
+
+// Restart button for scores
+restartButton.addEventListener("click", function () {
+    window.location.reload();
+});
 
 // function to show high scores
 function showHighScores(initials) {
