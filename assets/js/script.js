@@ -20,6 +20,8 @@ var questionEl = document.getElementById("question");
 var scores = JSON.parse(localStorage.getItem("scores")) || [];
 var viewHighScores = document.getElementById("highscores-link");
 var restartButton = document.getElementById("restart-btn");
+var submitButton = document.getElementById("submit-btn");
+var clearScoreButton = document.getElementById("clear-btn");
 
 
 //Question variables for quiz
@@ -194,6 +196,11 @@ function clearStatusClass(element) {
 
 // adding View high scores link listener
 viewHighScores.addEventListener("click", showHighScores);
+submitButton.addEventListener("click", function (event) {
+    event.preventDefault()
+    var initials = document.querySelector("#initials-field").value;
+    showHighScores(initials);
+});
 
 // Restart button for scores
 restartButton.addEventListener("click", function () {
@@ -231,3 +238,62 @@ function showHighScores(initials) {
     localStorage.setItem("scores", JSON.stringify(scores));
 
 };
+
+// function to load scores from local storage
+var loadScores = function () {
+    // Get score from local storage
+    if (!savedScores) {
+        return false;
+    }
+    // Convert scores from stringfield format into array
+    savedScores = JSON.parse(savedScores);
+    var initials = document.querySelector("#initials-field").value;
+    var newScore = {
+        score: timeLeft,
+        initials: initials
+    }
+    savedScores.push(newScore);
+    console.log(savedScores)
+    savedScores.forEach(score => {
+        initialsField.innerText = score.initials
+        scoreField.innerText = score.score
+    })
+};
+
+// Function to show high scores
+function showHighScores(initials) {
+    document.getElementById("highscores").classList.remove("hide")
+    document.getElementById("score-container").classList.add("hide");
+    startContainerEl.classList.add("hide");
+    questionContainerEl.classList.add("hide");
+    if (typeof initials == "string") {
+        var score = {
+            initials, timeLeft
+        }
+        scores.push(score)
+    }
+
+    var highScoreEl = document.getElementById("highscore");
+    highScoreEl.innerHTML = "";
+    //console.log(scores)
+    for (i = 0; i < scores.length; i++) {
+        var div1 = document.createElement("div");
+        div1.setAttribute("class", "name-div");
+        div1.innerText = scores[i].initials;
+        var div2 = document.createElement("div");
+        div2.setAttribute("class", "score-div");
+        div2.innerText = scores[i].timeLeft;
+
+        highScoreEl.appendChild(div1);
+        highScoreEl.appendChild(div2);
+    }
+
+    localStorage.setItem("scores", JSON.stringify(scores));
+
+};
+
+// this function clears local storage score items 
+clearScoreButton.addEventListener("click", function () {
+    localStorage.clear();
+    document.getElementById("highscore").innerHTML = "";
+});
