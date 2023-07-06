@@ -10,9 +10,15 @@ var timeLeft = 75; // time left is the time for each question
 var timerEl = document.getElementById("timer"); //timer element selects timer section from DOM
 
 
-//Variables for question containers
+//Variables for question container
 var startContainerEl = document.getElementById("start-container");
 var questionContainerEl = document.getElementById("question-container");
+var checkAnswerEl = document.getElementById("check-answer");
+var answerButtonsEl = document.getElementById("answer-buttons");
+var questionEl = document.getElementById("question");
+
+
+
 
 //Question variables for quiz
 var questions = [
@@ -102,4 +108,36 @@ function saveScore() {
         document.getElementById("score-container").classList.remove("hide");
         document.getElementById("your-score").textContent = "Your final score is " + timeLeft;
     }, 2000)
+};
+
+// Function to go to next question
+function setNextQuestion() {
+    resetState();
+    showQuestion(shuffledQuestions[currentQuestionIndex]);
+};
+
+// Reset state function used to reset 
+function resetState() {
+    //clearStatusClass(document.body)
+    nextBt.classList.add("hide")
+    checkAnswerEl.classList.add("hide")
+    while (answerButtonsEl.firstChild) {
+        answerButtonsEl.removeChild
+            (answerButtonsEl.firstChild)
+    }
+};
+
+// Display questions into container
+function showQuestion(question) {
+    questionEl.innerText = question.question
+    question.answers.forEach(answer => {
+        var button = document.createElement("button")
+        button.innerText = answer.text
+        button.classList.add("btn")
+        if (answer.correct) {
+            button.dataset.correct = answer.correct
+        }
+        button.addEventListener("click", selectAnswer)
+        answerButtonsEl.appendChild(button)
+    })
 };
