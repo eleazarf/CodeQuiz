@@ -16,6 +16,10 @@ var checkAnswerEl = document.getElementById("check-answer");
 var answerButtonsEl = document.getElementById("answer-buttons");
 var questionEl = document.getElementById("question");
 
+//Variables related to scores
+var scores = JSON.parse(localStorage.getItem("scores")) || [];
+var viewHighScores = document.getElementById("highscores-link");
+
 //Question variables for quiz
 var questions = [
     { 
@@ -99,7 +103,7 @@ function saveScore() {
     clearInterval(timerID);
     timerEl.textContent = "Time: " + timeLeft;
     setTimeout(function () {
-        //localStorage.setItem("scores", JSON.stringify(scores));
+        localStorage.setItem("scores", JSON.stringify(scores));
         questionContainerEl.classList.add("hide");
         document.getElementById("score-container").classList.remove("hide");
         document.getElementById("your-score").textContent = "Your final score is " + timeLeft;
@@ -165,7 +169,7 @@ function selectAnswer(e) {
         nextBt.classList.remove("hide")
         checkAnswerEl.classList.remove("hide")
     } else {
-        startButton.classList.remove("hide")
+        startBt.classList.remove("hide")
         saveScore();
     }
 };
@@ -184,4 +188,39 @@ function setStatusClass(element, correct) {
 function clearStatusClass(element) {
     element.classList.remove("correct");
     element.classList.remove("wrong");
+};
+
+// adding View high scores link listener
+viewHighScores.addEventListener("click", showHighScores);
+
+// function to show high scores
+function showHighScores(initials) {
+    document.getElementById("highscores").classList.remove("hide")
+    document.getElementById("score-container").classList.add("hide");
+    startContainerEl.classList.add("hide");
+    questionContainerEl.classList.add("hide");
+    if (typeof initials == "string") {
+        var score = {
+            initials, timeLeft
+        }
+        scores.push(score)
+    }
+
+    var highScoreEl = document.getElementById("highscore");
+    highScoreEl.innerHTML = "";
+    //console.log(scores)
+    for (i = 0; i < scores.length; i++) {
+        var div1 = document.createElement("div");
+        div1.setAttribute("class", "name-div");
+        div1.innerText = scores[i].initials;
+        var div2 = document.createElement("div");
+        div2.setAttribute("class", "score-div");
+        div2.innerText = scores[i].timeLeft;
+
+        highScoreEl.appendChild(div1);
+        highScoreEl.appendChild(div2);
+    }
+
+    localStorage.setItem("scores", JSON.stringify(scores));
+
 };
