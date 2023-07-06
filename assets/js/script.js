@@ -9,16 +9,12 @@ var timer = document.getElementById("timer");
 var timeLeft = 75; // time left is the time for each question
 var timerEl = document.getElementById("timer"); //timer element selects timer section from DOM
 
-
 //Variables for question container
 var startContainerEl = document.getElementById("start-container");
 var questionContainerEl = document.getElementById("question-container");
 var checkAnswerEl = document.getElementById("check-answer");
 var answerButtonsEl = document.getElementById("answer-buttons");
 var questionEl = document.getElementById("question");
-
-
-
 
 //Question variables for quiz
 var questions = [
@@ -140,4 +136,52 @@ function showQuestion(question) {
         button.addEventListener("click", selectAnswer)
         answerButtonsEl.appendChild(button)
     })
+};
+
+// function used to select answer 
+function selectAnswer(e) {
+    var selectedButton = e.target;
+    //console.dir(selectedButton);
+    var correct = selectedButton.dataset.correct;
+    checkAnswerEl.classList.remove("hide")
+    // Checking if the answer correct or wrong then show feedback
+    if (correct) {
+        checkAnswerEl.innerHTML = "You got it right!";
+    } else {
+        checkAnswerEl.innerHTML = "Sorry that was not the correct answer.";
+        if (timeLeft <= 10) {
+            timeLeft = 0;
+        } else {
+            // If the aswer is wrong, deduct time by 10 to penalize
+            timeLeft -= 10;
+        }
+    }
+
+    Array.from(answerButtonsEl.children).forEach(button => {
+        setStatusClass(button, button.dataset.correct)
+    })
+
+    if (shuffledQuestions.length > currentQuestionIndex + 1) {
+        nextBt.classList.remove("hide")
+        checkAnswerEl.classList.remove("hide")
+    } else {
+        startButton.classList.remove("hide")
+        saveScore();
+    }
+};
+
+// Function to check and show the correct answer, changing buttons colors
+function setStatusClass(element, correct) {
+    clearStatusClass(element)
+    if (correct) {
+        element.classList.add("correct");
+    } else {
+        element.classList.add("wrong");
+    }
+};
+
+// Function to remove all the classes
+function clearStatusClass(element) {
+    element.classList.remove("correct");
+    element.classList.remove("wrong");
 };
