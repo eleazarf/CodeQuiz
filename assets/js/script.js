@@ -6,7 +6,7 @@ var nextBt = document.getElementById("next-btn");
 //variables related to countdown timer
 var timerID;
 var timer = document.getElementById("timer");
-var timeLeft = 75; // time left is the time for each question
+var timeLeft = 76; // time left is the time for each question
 var timerEl = document.getElementById("timer"); //timer element selects timer section from DOM
 
 //Variables for question container
@@ -72,7 +72,7 @@ function setNextQuestion() {
 
 // Reset state function used to reset 
 function resetState() {
-    //clearStatusClass(document.body)
+    clearStatusClass(document.body)
     nextBt.classList.add("hide")
     checkAnswerEl.classList.add("hide")
     while (answerButtonsEl.firstChild) {
