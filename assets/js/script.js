@@ -25,10 +25,9 @@ var clearScoreButton = document.getElementById("clear-btn");
 
 // This is the count down timer function
 function countDown() {
-    timeLeft--;
-    timerEl.textContent = "Time: " + timeLeft;
+    timerEl.textContent = "Time: " + --timeLeft;
     if (timeLeft <= 0) {
-        saveScore(); //goes to function to save score once time is up
+        saveScore();
     }
 }
 
@@ -38,6 +37,8 @@ nextBt.addEventListener("click", () => {
     currentQuestionIndex++
     setNextQuestion()
 });
+
+
 
 // this is the Start Quiz function
 function startGame() {
@@ -99,18 +100,17 @@ function showQuestion(question) {
 // function used to select answer 
 function selectAnswer(e) {
     var selectedButton = e.target;
-    //console.dir(selectedButton);
     var correct = selectedButton.dataset.correct;
     checkAnswerEl.classList.remove("hide")
     // Checking if the answer correct or wrong then show feedback
     if (correct) {
-        checkAnswerEl.innerHTML = "You got it right!";
+        checkAnswerEl.innerHTML = "That's correct!";
     } else {
-        checkAnswerEl.innerHTML = "Sorry that was not the correct answer.";
+        checkAnswerEl.innerHTML = "Incorrect, please give it another shot.";
         if (timeLeft <= 10) {
             timeLeft = 0;
         } else {
-            // If the aswer is wrong, deduct time by 10 to penalize
+            // If the aswer is wrong, deduct time by 10
             timeLeft -= 10;
         }
     }
@@ -172,7 +172,6 @@ function showHighScores(initials) {
 
     var highScoreEl = document.getElementById("highscore");
     highScoreEl.innerHTML = "";
-    //console.log(scores)
     for (i = 0; i < scores.length; i++) {
         var div1 = document.createElement("div");
         div1.setAttribute("class", "name-div");
@@ -195,7 +194,7 @@ var loadScores = function () {
     if (!savedScores) {
         return false;
     }
-    // Convert scores from stringfield format into array
+    // Convert scores into array
     savedScores = JSON.parse(savedScores);
     var initials = document.querySelector("#initials-field").value;
     var newScore = {
@@ -203,7 +202,6 @@ var loadScores = function () {
         initials: initials
     }
     savedScores.push(newScore);
-    console.log(savedScores)
     savedScores.forEach(score => {
         initialsField.innerText = score.initials
         scoreField.innerText = score.score
@@ -225,7 +223,6 @@ function showHighScores(initials) {
 
     var highScoreEl = document.getElementById("highscore");
     highScoreEl.innerHTML = "";
-    //console.log(scores)
     for (i = 0; i < scores.length; i++) {
         var div1 = document.createElement("div");
         div1.setAttribute("class", "name-div");
